@@ -14,15 +14,15 @@ client.once("ready", () => {
   setInterval(async () => {
     const response = (
       await axios.get(
-        "https://api.coingecko.com/api/v3/simple/token_price/binance-smart-chain?contract_addresses=0x80e15fe54e9d155f8366187a6a32bdef9c2366c4&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=true"
+        "https://api.nomics.com/v1/currencies/ticker?key=9c44be3df7083f3e5b0438849203b264a87821d4&ids=BMONZ1&interval=1d&convert=USD"
       )
-    ).data["0x80e15fe54e9d155f8366187a6a32bdef9c2366c4"];
+    ).data[0];
 
-    const usd = response.usd;
-    const percentage = response.usd_24h_change;
+    const usd = parseFloat(response.price).toFixed(2);
+    const percentage = (response["1d"].price_change_pct * 100).toFixed(2);
     const upordown = percentage < 0 ? "📉" : "📈";
 
-    client.user.setActivity(`$${usd} ${upordown} ${percentage.toFixed(2)}%`);
+    client.user.setActivity(`$${usd} ${upordown} ${percentage}%`);
   }, 7000);
 });
 
