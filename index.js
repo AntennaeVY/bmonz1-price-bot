@@ -18,7 +18,7 @@ client.once("ready", () => {
       )
     ).data[0];
 
-    const usd = parseFloat(response.price).toFixed(2);
+    const usd = parseFloat(response.price).toFixed(4);
     const percentage = (response["1d"].price_change_pct * 100).toFixed(2);
     const upordown = percentage < 0 ? "📉" : "📈";
 
