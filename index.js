@@ -12,6 +12,8 @@ client.once("ready", () => {
   console.log(`Logged in as ${client.user.tag}`);
 
   setInterval(async () => {
+    try {
+      
     const response = (
       await axios.get(
         "https://api.nomics.com/v1/currencies/ticker?key=9c44be3df7083f3e5b0438849203b264a87821d4&ids=BMONZ1&interval=1d&convert=USD"
@@ -23,6 +25,9 @@ client.once("ready", () => {
     const upordown = percentage < 0 ? "📉" : "📈";
 
     client.user.setActivity(`$${usd} ${upordown} ${percentage}%`);
+    } catch (err) {
+      console.log(err.message)
+    }
   }, 7000);
 });
 
